@@ -1,23 +1,34 @@
+use std::{thread::sleep, time::Duration};
+
 pub fn run(input: &str) {
-    let mut dial_position = 50;
-    let mut zero_count = 0;
+    let mut pos = 50;
+    let mut finish_at_zero_count = 0;
+    let mut passed_zero_count = 0;
 
     for line in input.lines() {
-        let absolute_offset = line[1..].parse::<i32>().unwrap();
+        let dir = if line.starts_with('R') { 1 } else { -1 };
+        let magnitude = line[1..].parse::<i32>().unwrap();
 
-        dial_position += if line.starts_with('L') {
-            -absolute_offset
-        } else {
-            absolute_offset
-        };
+        let new_pos = pos + dir * magnitude;
+        let wrap_count = new_pos.abs() / 100;
 
-        dial_position = dial_position.rem_euclid(100);
+        passed_zero_count += wrap_count;
 
-        if dial_position == 0 {
-            zero_count += 1;
+        // Check for crossing positive->negative or the other way.
+        if pos != 0 && new_pos.signum() != pos.signum() {
+            passed_zero_count += 1;
+        }
+
+        pos = new_pos.rem_euclid(100);
+
+        if pos == 0 {
+            finish_at_zero_count += 1;
         }
     }
 
     println!("Part 1:");
-    println!("Dial hit zero {zero_count} times");
+    println!("Dial hit zero {finish_at_zero_count} times");
+
+    println!("Part 2:");
+    println!("Dial passed through OR hit zero {passed_zero_count} times");
 }
