@@ -1,4 +1,4 @@
-use std::fs::read_to_string;
+use std::{fs::read_to_string, time::Instant};
 
 use owo_colors::OwoColorize;
 
@@ -21,10 +21,14 @@ fn main() {
         );
 
         if let Ok(input) = read_to_string(format!("src/day{formatted_day_number}.txt")) {
+            let start_time = Instant::now();
+
             match day(&input) {
                 Ok(_) => println!("\n{}", "OK!".green()),
                 Err(error) => println!("\n{} {error:?}", "Error:".red()),
             }
+
+            println!("Took {:.2?}", start_time.elapsed());
         } else {
             println!("(Skipped: no input)");
         }
