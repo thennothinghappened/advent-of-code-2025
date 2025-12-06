@@ -1,13 +1,17 @@
 use std::{thread::sleep, time::Duration};
 
-pub fn run(input: &str) {
+use anyhow::Context;
+
+pub fn run(input: &str) -> anyhow::Result<()> {
     let mut pos = 50;
     let mut finish_at_zero_count = 0;
     let mut passed_zero_count = 0;
 
     for line in input.lines() {
         let dir = if line.starts_with('R') { 1 } else { -1 };
-        let magnitude = line[1..].parse::<i32>().unwrap();
+        let magnitude = line[1..]
+            .parse::<i32>()
+            .with_context(|| format!("Invalid instruction magnitude for {line}"))?;
 
         let new_pos = pos + dir * magnitude;
         let wrap_count = new_pos.abs() / 100;
@@ -31,4 +35,6 @@ pub fn run(input: &str) {
 
     println!("Part 2:");
     println!("Dial passed through OR hit zero {passed_zero_count} times");
+
+    Ok(())
 }
