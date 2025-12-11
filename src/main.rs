@@ -5,6 +5,7 @@ use owo_colors::OwoColorize;
 mod day01;
 mod day02;
 mod day03;
+mod day04;
 
 type DayFunc = fn(&str) -> anyhow::Result<()>;
 type Day = (&'static str, DayFunc);
@@ -13,6 +14,7 @@ const DAYS: &[Day] = &[
     ("Secret Entrance", day01::run),
     ("Gift Shop", day02::run),
     ("Lobby", day03::run),
+    ("Printing Department", day04::run),
 ];
 
 fn main() {
