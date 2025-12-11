@@ -36,8 +36,6 @@ pub fn run(input: &str) -> anyhow::Result<()> {
         }
     }
 
-    // debug_print_grid(&grid);
-
     for y in 0..grid.rows() {
         for x in 0..grid.cols() {
             if roll_is_accessible(&grid, x, y) {
@@ -79,8 +77,6 @@ fn roll_remove_and_propagate(grid: &mut Grid<FloorCell>, x: usize, y: usize) -> 
     let mut remove_count = 1;
     grid[(y, x)] = FloorCell::Empty;
 
-    // debug_print_grid(grid);
-
     for (neighbour_x, neighbour_y) in dirs_as_offsets(x, y) {
         let mut should_remove = false;
 
@@ -108,21 +104,6 @@ fn dirs_as_offsets(x: usize, y: usize) -> impl Iterator<Item = (usize, usize)> {
         ))
     })
 }
-
-// fn debug_print_grid(grid: &Grid<FloorCell>) {
-//     for row in grid.iter_rows() {
-//         println!(
-//             "{}",
-//             row.map(|cell| match *cell {
-//                 FloorCell::Empty => '.',
-//                 FloorCell::Roll(neighbour_count) => (neighbour_count + b'0').into(),
-//             })
-//             .join("")
-//         );
-//     }
-
-//     println!();
-// }
 
 #[derive(Default, Clone, Copy)]
 enum FloorCell {
