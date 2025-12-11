@@ -44,13 +44,15 @@ fn run_day(day_number: usize, day: &Day) {
 
     if let Ok(input) = read_to_string(format!("src/day{formatted_day_number}.txt")) {
         let start_time = Instant::now();
+        let result = day.1(&input);
+        let elapsed = start_time.elapsed();
 
-        match day.1(&input) {
+        match result {
             Ok(_) => println!("\n{}", "OK!".green()),
             Err(error) => println!("\n{} {error:?}", "Error:".red()),
         }
 
-        println!("Took {:.2?}", start_time.elapsed());
+        println!("Took {:.2?}", elapsed);
     } else {
         println!("(Skipped: no input)");
     }
