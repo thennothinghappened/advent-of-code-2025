@@ -4,11 +4,16 @@ use owo_colors::OwoColorize;
 
 mod day01;
 mod day02;
+mod day03;
 
 type DayFunc = fn(&str) -> anyhow::Result<()>;
 type Day = (&'static str, DayFunc);
 
-const DAYS: &[Day] = &[("Secret Entrance", day01::run), ("Gift Shop", day02::run)];
+const DAYS: &[Day] = &[
+    ("Secret Entrance", day01::run),
+    ("Gift Shop", day02::run),
+    ("Lobby", day03::run),
+];
 
 fn main() {
     if let Some(day_number) = args().nth(1).and_then(|it| it.parse::<usize>().ok()) {
