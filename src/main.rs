@@ -6,6 +6,7 @@ mod day01;
 mod day02;
 mod day03;
 mod day04;
+mod day05;
 
 type DayFunc = fn(&str) -> anyhow::Result<()>;
 type Day = (&'static str, DayFunc);
@@ -15,6 +16,7 @@ const DAYS: &[Day] = &[
     ("Gift Shop", day02::run),
     ("Lobby", day03::run),
     ("Printing Department", day04::run),
+    ("Cafeteria", day05::run),
 ];
 
 fn main() {
